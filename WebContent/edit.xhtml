@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF8" />
+	<style type="text/css">
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 88% !important;
+}
+</style>
+</h:head>
+<body>
+	<h:graphicImage name="shapka.jpg" />
+	<br />
+	<h:form>
+		<h:panelGrid columns="3" border="">
+			<f:facet name="header">
+				<h1>Редактирование принтера</h1>
+			</f:facet>
+			<b>Номер : </b>
+			<p:inputText value="#{printerController.title}" required="true"
+				requiredMessage="Необходимо ввести номер" id="etitle"></p:inputText>
+			<p:message for="etitle"></p:message>
+
+			<b>Модель : </b>
+			<p:selectOneMenu value="#{printerController.model}" rendered="true"
+				requiredMessage="Необходимо выбрать модель" id="emodel">
+				<f:selectItems value="#{modelController.allModels()}" var="item"
+					itemLabel="#{item.name}" itemValue="#{item.model_id}">
+				</f:selectItems>
+			</p:selectOneMenu>
+			<p:message for="emodel"></p:message>
+
+			<b>Компания : </b>
+			<p:selectOneMenu value="#{printerController.company}" rendered="true"
+				requiredMessage="Необходимо выбрать компанию" id="ecomp">
+				<f:selectItems value="#{companyController.allCompanys()}" var="item"
+					itemLabel="#{item.name}" itemValue="#{item.company_id}">
+				</f:selectItems>
+			</p:selectOneMenu>
+			<p:message for="ecomp"></p:message>
+
+			<b>IP : </b>
+			<p:inputText value="#{printerController.ip}" required="true"
+				requiredMessage="Необходимо ввести IP" id="eip"
+				validatorMessage="Введен неверный IP. Пример : 192.168.3.19">
+				<f:validateRegex
+					pattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+					for="eip" />
+			</p:inputText>
+			<p:message for="eip"></p:message>
+
+			<b>MAC : </b>
+			<p:inputText value="#{printerController.mac}" required="true"
+				requiredMessage="Необходимо ввести MAC" id="emac"
+				validatorMessage="Введен неверный MAC. Пример : 003b4abced25">
+				<f:validateRegex pattern="[0-9A-Za-z^o]{12}" for="emac" />
+			</p:inputText>
+
+			<p:message for="emac"></p:message>
+
+			<b>Расположение : </b>
+			<p:inputText value="#{printerController.location}" required="true"
+				requiredMessage="Необходимо ввести расположение" id="eloc"></p:inputText>
+			<p:message for="eloc"></p:message>
+		</h:panelGrid>
+		<p:commandButton ajax="false" value="Сохранить"
+			action="#{printerController.save()}"
+			onclick="return confirm('Вы уверены ?')"></p:commandButton>
+
+	</h:form>
+
+	<br />
+	<h:form>
+		<p:commandLink ajax="false" value="На главную" action="allprinters"></p:commandLink>
+	</h:form>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF8" />
+	<style type="text/css">
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 88% !important;
+}
+</style>
+</h:head>
+<body>
+	<h:graphicImage name="shapka.jpg" />
+	<br />
+
+	<center>
+		<h:form>
+			<p:dataTable var="list" value="#{printerController.search()}"
+				paginator="true" paginatorPosition="bottom" rows="15" resizableColumns="true" resizeMode="expand">
+				<f:facet name="header"><h1>Результат поиска</h1></f:facet>
+				
+				<p:column headerText="Номер" width="75" resizable="false">
+					<h:outputText value="#{list.title}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Модель" resizable="true" width="200">
+					<h:outputText value="#{list.model.name}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Картридж" resizable="true" width="200">
+					<h:outputText value="#{list.model.cartridge.name}"></h:outputText>
+				</p:column>
+				
+				<p:column headerText="Компания" resizable="true" width="200">
+					<h:outputText value="#{list.company.name}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="IP" width="150" resizable="false">
+					<h:outputText value="#{list.ip}"></h:outputText>
+				</p:column>
+
+
+				<p:column headerText="MAC" width="150" resizable="false">
+					<h:outputText value="#{list.mac}"></h:outputText>
+				</p:column>
+
+
+				<p:column headerText="Расположение" resizable="true">
+					<h:outputText value="#{list.location}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Редактировать" width="190">
+					<p:commandButton ajax="false" value="Редактировать"
+						action="#{printerController.setEdit()}">
+						<f:param name="editid" value="#{list.id}"></f:param>
+					</p:commandButton>
+				</p:column>
+
+				<p:column headerText="Удалить" width="150">
+					<p:commandButton ajax="false" value="Удалить"
+						action="#{printerController.delete()}"
+						onclick="return confirm('Данное действие удалит принтер безвозвратно. Вы уверены ?')">
+						<f:param name="id" value="#{list.id}"></f:param>
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</center>
+	<br />
+	<h:form>
+		<p:commandLink ajax="false" value="На главную" action="allprinters"></p:commandLink>
+	</h:form>
+</body>
+</html>

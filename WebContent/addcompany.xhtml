@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF8" />
+	<style type="text/css">
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 88% !important;
+}
+</style>
+</h:head>
+<body>
+	<h:graphicImage name="shapka.jpg" />
+	<br />
+	<h:form>
+		<h:panelGrid columns="3" border="">
+			<f:facet name="header">
+				<h1>Добавить компанию</h1>
+			</f:facet>
+
+
+			<b>Название компании : </b>
+			<p:inputText value="#{companyController.name}" required="true"
+				requiredMessage="Необходимо ввести название компании" id="ecompany"	>
+			</p:inputText>
+			<p:message for="ecompany"></p:message>
+
+		
+		</h:panelGrid>
+		<p:commandButton ajax="false" value="Добавить"
+			action="#{companyController.add()}"></p:commandButton>
+
+	</h:form>
+
+	<br />
+	<h:form>
+		<p:commandLink ajax="false" value="На главную" action="allprinters"></p:commandLink>
+	</h:form>
+
+</body>
+</html>
